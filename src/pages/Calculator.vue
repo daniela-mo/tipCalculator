@@ -19,13 +19,13 @@
           <label>Valor</label>
           <div class="container-content__entrance__total__lbl">
             <span>$ </span>
-            <input type="number" step="0.01" v-model="bill" />
+            <input type="number" step="0.01" v-model="conta" />
           </div>
         </div>
         <div class="container-content__entrance__sliders">
           <div>
             <label>Gorjeta: </label>
-            <span>{{ tipPercent }}%</span>
+            <span>{{ gorjeta }}%</span>
           </div>
           <div>
             <label>10 </label>
@@ -35,7 +35,7 @@
               max="20"
               step="1"
               value="10"
-              v-model="tipPercent"
+              v-model="gorjeta"
             />
             <label> 20</label>
           </div>
@@ -43,7 +43,7 @@
         <div class="container-content__entrance__sliders">
           <div>
             <label for="">Pessoas: </label>
-            <span>{{ numPeople }}</span>
+            <span>{{ pessoas }}</span>
           </div>
           <div>
             <label>2 </label>
@@ -53,7 +53,7 @@
               max="16"
               step="1"
               value="2"
-              v-model="numPeople"
+              v-model="pessoas"
             />
             <label> 16</label>
           </div>
@@ -62,23 +62,51 @@
 
       <section class="container-content__exit">
         <div class="container-content__exit__result">
-          <label for="bill">Conta:</label>
-          <span>$ {{ bill }}</span>
+          <label>Conta:</label>
+          <span>
+            {{
+              conta.toLocaleString("en", {
+                style: "currency",
+                currency: "USD",
+              })
+            }}</span
+          >
         </div>
 
         <div class="container-content__exit__result">
           <label>Gorjeta: </label>
-          <span>$ {{ totalTip }}</span>
+          <span>
+            {{
+              gorjetaCalculada.toLocaleString("en", {
+                style: "currency",
+                currency: "USD",
+              })
+            }}</span
+          >
         </div>
 
         <div class="container-content__exit__result">
           <label>Total com Gorjeta: </label>
-          <span>$ {{ totalAmount }}</span>
+          <span>
+            {{
+              total.toLocaleString("en", {
+                style: "currency",
+                currency: "USD",
+              })
+            }}</span
+          >
         </div>
 
         <div class="container-content__exit__result">
           <label>por Pessoa: </label>
-          <span>$ {{ totalPerPeson }}</span>
+          <span>
+            {{
+              porPessoa.toLocaleString("en", {
+                style: "currency",
+                currency: "USD",
+              })
+            }}</span
+          >
         </div>
 
         <ConvertDolar :value="convertValueDolar" />
@@ -102,42 +130,28 @@
           <label>Valor</label>
           <div class="container-content__entrance__total__lbl">
             <span>€ </span>
-            <input type="number" step="0.01" v-model="bill" />
+            <input type="number" step="0.01" v-model="conta" />
           </div>
         </div>
         <div class="container-content__entrance__sliders">
           <div>
             <label>Gorjeta: </label>
-            <span>{{ tipPercent }}%</span>
+            <span>{{ gorjeta }}%</span>
           </div>
           <div>
             <label>10 </label>
-            <input
-              type="range"
-              min="10"
-              max="20"
-              step="1"
-              value="10"
-              v-model="tipPercent"
-            />
+            <input type="range" min="10" max="20" step="1" v-model="gorjeta" />
             <label> 20</label>
           </div>
         </div>
         <div class="container-content__entrance__sliders">
           <div>
             <label for="">Pessoas: </label>
-            <span>{{ numPeople }}</span>
+            <span>{{ pessoas }}</span>
           </div>
           <div>
             <label>2 </label>
-            <input
-              type="range"
-              min="2"
-              max="16"
-              step="1"
-              value="2"
-              v-model="numPeople"
-            />
+            <input type="range" min="2" max="16" step="1" v-model="pessoas" />
             <label> 16</label>
           </div>
         </div>
@@ -145,23 +159,51 @@
 
       <section class="container-content__exit">
         <div class="container-content__exit__result">
-          <label for="bill">Conta:</label>
-          <span>€ {{ bill }}</span>
+          <label>Conta:</label>
+          <span>
+            {{
+              conta.toLocaleString("ue", {
+                style: "currency",
+                currency: "EUR",
+              })
+            }}
+          </span>
         </div>
 
         <div class="container-content__exit__result">
           <label>Gorjeta: </label>
-          <span>€ {{ totalTip }}</span>
+          <span>
+            {{
+              gorjeta.toLocaleString("ue", {
+                style: "currency",
+                currency: "EUR",
+              })
+            }}</span
+          >
         </div>
 
         <div class="container-content__exit__result">
           <label>Total com Gorjeta: </label>
-          <span>€ {{ totalAmount }}</span>
+          <span>
+            {{
+              total.toLocaleString("ue", {
+                style: "currency",
+                currency: "EUR",
+              })
+            }}</span
+          >
         </div>
 
         <div class="container-content__exit__result">
           <label>por Pessoa: </label>
-          <span>€ {{ totalPerPeson }}</span>
+          <span>
+            {{
+              porPessoa.toLocaleString("ue", {
+                style: "currency",
+                currency: "EUR",
+              })
+            }}</span
+          >
         </div>
 
         <ConvertEuro :value="convertValueEuro" />
@@ -174,6 +216,7 @@
 import Switches from "vue-switches";
 import ConvertDolar from "@/components/ConvertDolar.vue";
 import ConvertEuro from "@/components/ConvertEuro.vue";
+import { useCurrencyInput } from "vue-currency-input";
 
 export default {
   components: {
@@ -181,15 +224,16 @@ export default {
     ConvertDolar,
     ConvertEuro,
   },
+
   data() {
     return {
       enabled: false,
-      bill: "",
-      tipPercent: 15,
-      totalTip: 0,
-      totalAmount: 0,
-      totalPerPeson: 0,
-      numPeople: 2,
+      conta: 0,
+      gorjeta: 10,
+      gorjetaCalculada: 0,
+      total: 0,
+      porPessoa: 0,
+      pessoas: 2,
       convertValueDolar: 0,
       convertValueEuro: 0,
     };
@@ -197,22 +241,22 @@ export default {
 
   computed: {
     calculateTip() {
-      let totalTip = Number(this.bill) * (Number(this.tipPercent) / 100);
-      this.totalTip = totalTip;
+      let gorjetaCalculada = Number(this.conta) * Number(this.gorjeta / 100);
+      this.gorjetaCalculada = gorjetaCalculada;
 
-      let totalAmount = totalTip + Number(this.bill);
-      this.totalAmount = totalAmount;
+      let total = gorjetaCalculada + Number(this.conta);
+      this.total = total;
 
-      let totalPerPeson = totalAmount / Number(this.numPeople);
-      this.totalPerPeson = totalPerPeson;
+      let porPessoa = total / Number(this.pessoas);
+      this.porPessoa = porPessoa;
 
-      let convertValueDolar = totalPerPeson * 5.65;
+      let convertValueDolar = gorjetaCalculada * 5.65;
       this.convertValueDolar = convertValueDolar;
 
-      let convertValueEuro = totalPerPeson * 6.5;
+      let convertValueEuro = gorjetaCalculada * 6.5;
       this.convertValueEuro = convertValueEuro;
 
-      return totalTip;
+      return gorjetaCalculada;
     },
   },
 };

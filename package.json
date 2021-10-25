@@ -7,8 +7,10 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@vue/composition-api": "^1.2.4",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
+    "vue-currency-input": "^2.1.2",
     "vue-router": "^3.2.0",
     "vue-switches": "^2.0.1"
   },

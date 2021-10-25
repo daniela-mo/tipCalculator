@@ -1,7 +1,14 @@
 <template>
   <div class="converter">
     <label>em R$:</label>
-    <span>R$ {{ value }}</span>
+    <span>
+      {{
+        value.toLocaleString("PT-BR", {
+          style: "currency",
+          currency: "BRL",
+        })
+      }}</span
+    >
   </div>
 </template>
 
