@@ -1,22 +1,16 @@
 <template>
-  <!-- <div class="converter">
-    <div v-for="id in commit" :key="id">
-      <label>em R$:</label>
-      <span>{{ commit }} </span>
-    </div>
-  </div> -->
   <div class="converter">
     <label>em R$:</label>
-    <span>R$</span>
+    <span>R$ {{ value }}</span>
   </div>
 </template>
 
 <script>
-//export default {
-//   props: {
-//     commit: totalAmount,
-//   },
-// };
+export default {
+  props: {
+    value: Number,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
