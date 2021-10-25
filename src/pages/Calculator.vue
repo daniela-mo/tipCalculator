@@ -4,21 +4,21 @@
       <h1>Le/Tip</h1>
     </div>
 
-    <div v-on="calculateTip" class="container-content">
+    <div v-on="calculateTip" v-if="enabled" class="container-content">
       <section class="container-content__entrance">
         <div class="container-content__entrance__convert">
-          <p>USD</p>
+          <p>EUR</p>
           <switches
             v-model="enabled"
-            @click="show"
             class="container-content__entrance__convert__switches"
           ></switches>
-          <p>EUR</p>
+          <p>USD</p>
         </div>
+
         <div class="container-content__entrance__total">
           <label>Valor</label>
           <div class="container-content__entrance__total__lbl">
-            <span>$</span>
+            <span>$ </span>
             <input type="number" step="0.01" v-model="bill" />
           </div>
         </div>
@@ -63,25 +63,108 @@
       <section class="container-content__exit">
         <div class="container-content__exit__result">
           <label for="bill">Conta:</label>
-          <span>${{ bill }}</span>
+          <span>$ {{ bill }}</span>
         </div>
 
         <div class="container-content__exit__result">
           <label>Gorjeta: </label>
-          <span>${{ totalTip }}</span>
+          <span>$ {{ totalTip }}</span>
         </div>
 
         <div class="container-content__exit__result">
           <label>Total com Gorjeta: </label>
-          <span>${{ totalAmount }}</span>
+          <span>$ {{ totalAmount }}</span>
         </div>
 
         <div class="container-content__exit__result">
           <label>por Pessoa: </label>
-          <span>${{ totalPerPeson }}</span>
+          <span>$ {{ totalPerPeson }}</span>
         </div>
 
-        <Convert :value="convertValue" />
+        <ConvertDolar :value="convertValueDolar" />
+      </section>
+    </div>
+
+    <!-- Em Euro -->
+
+    <div v-on="calculateTip" v-if="!enabled" class="container-content">
+      <section class="container-content__entrance">
+        <div class="container-content__entrance__convert">
+          <p>EUR</p>
+          <switches
+            v-model="enabled"
+            class="container-content__entrance__convert__switches"
+          ></switches>
+          <p>USD</p>
+        </div>
+
+        <div class="container-content__entrance__total">
+          <label>Valor</label>
+          <div class="container-content__entrance__total__lbl">
+            <span>€ </span>
+            <input type="number" step="0.01" v-model="bill" />
+          </div>
+        </div>
+        <div class="container-content__entrance__sliders">
+          <div>
+            <label>Gorjeta: </label>
+            <span>{{ tipPercent }}%</span>
+          </div>
+          <div>
+            <label>10 </label>
+            <input
+              type="range"
+              min="10"
+              max="20"
+              step="1"
+              value="10"
+              v-model="tipPercent"
+            />
+            <label> 20</label>
+          </div>
+        </div>
+        <div class="container-content__entrance__sliders">
+          <div>
+            <label for="">Pessoas: </label>
+            <span>{{ numPeople }}</span>
+          </div>
+          <div>
+            <label>2 </label>
+            <input
+              type="range"
+              min="2"
+              max="16"
+              step="1"
+              value="2"
+              v-model="numPeople"
+            />
+            <label> 16</label>
+          </div>
+        </div>
+      </section>
+
+      <section class="container-content__exit">
+        <div class="container-content__exit__result">
+          <label for="bill">Conta:</label>
+          <span>€ {{ bill }}</span>
+        </div>
+
+        <div class="container-content__exit__result">
+          <label>Gorjeta: </label>
+          <span>€ {{ totalTip }}</span>
+        </div>
+
+        <div class="container-content__exit__result">
+          <label>Total com Gorjeta: </label>
+          <span>€ {{ totalAmount }}</span>
+        </div>
+
+        <div class="container-content__exit__result">
+          <label>por Pessoa: </label>
+          <span>€ {{ totalPerPeson }}</span>
+        </div>
+
+        <ConvertEuro :value="convertValueEuro" />
       </section>
     </div>
   </div>
@@ -89,12 +172,14 @@
 
 <script>
 import Switches from "vue-switches";
-import Convert from "@/components/Convert.vue";
+import ConvertDolar from "@/components/ConvertDolar.vue";
+import ConvertEuro from "@/components/ConvertEuro.vue";
 
 export default {
   components: {
     Switches,
-    Convert,
+    ConvertDolar,
+    ConvertEuro,
   },
   data() {
     return {
@@ -105,7 +190,8 @@ export default {
       totalAmount: 0,
       totalPerPeson: 0,
       numPeople: 2,
-      convertValue: 0,
+      convertValueDolar: 0,
+      convertValueEuro: 0,
     };
   },
 
@@ -120,8 +206,11 @@ export default {
       let totalPerPeson = totalAmount / Number(this.numPeople);
       this.totalPerPeson = totalPerPeson;
 
-      let convertValue = totalPerPeson * 5.65;
-      this.convertValue = convertValue;
+      let convertValueDolar = totalPerPeson * 5.65;
+      this.convertValueDolar = convertValueDolar;
+
+      let convertValueEuro = totalPerPeson * 6.5;
+      this.convertValueEuro = convertValueEuro;
 
       return totalTip;
     },
