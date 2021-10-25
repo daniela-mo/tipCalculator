@@ -4,6 +4,8 @@
       <h1>Le/Tip</h1>
     </div>
 
+    <!-- Em Dolar -->
+
     <div v-on="calculateTip" v-if="enabled" class="calculator-content">
       <section class="calculator-content__entrance">
         <div class="calculator-content__entrance__convert">
@@ -15,6 +17,7 @@
           <p>USD</p>
         </div>
 
+        <!-- Valores de entrada -->
         <div class="calculator-content__entrance__total">
           <label>Valor</label>
           <div class="calculator-content__entrance__total__lbl">
@@ -60,6 +63,7 @@
         </div>
       </section>
 
+      <!-- Valores de saída -->
       <section class="calculator-content__exit">
         <div class="calculator-content__exit__result">
           <label>Conta:</label>
@@ -114,7 +118,6 @@
     </div>
 
     <!-- Em Euro -->
-
     <div v-on="calculateTip" v-if="!enabled" class="calculator-content">
       <section class="calculator-content__entrance">
         <div class="calculator-content__entrance__convert">
@@ -126,6 +129,7 @@
           <p>USD</p>
         </div>
 
+        <!-- Valores de entrada -->
         <div class="calculator-content__entrance__total">
           <label>Valor</label>
           <div class="calculator-content__entrance__total__lbl">
@@ -157,6 +161,7 @@
         </div>
       </section>
 
+      <!-- Valores de saída -->
       <section class="calculator-content__exit">
         <div class="calculator-content__exit__result">
           <label>Conta:</label>
