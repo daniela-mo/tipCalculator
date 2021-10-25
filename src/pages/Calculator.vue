@@ -4,25 +4,25 @@
       <h1>Le/Tip</h1>
     </div>
 
-    <div v-on="calculateTip" v-if="enabled" class="container-content">
-      <section class="container-content__entrance">
-        <div class="container-content__entrance__convert">
+    <div v-on="calculateTip" v-if="enabled" class="calculator-content">
+      <section class="calculator-content__entrance">
+        <div class="calculator-content__entrance__convert">
           <p>EUR</p>
           <switches
             v-model="enabled"
-            class="container-content__entrance__convert__switches"
+            class="calculator-content__entrance__convert__switches"
           ></switches>
           <p>USD</p>
         </div>
 
-        <div class="container-content__entrance__total">
+        <div class="calculator-content__entrance__total">
           <label>Valor</label>
-          <div class="container-content__entrance__total__lbl">
+          <div class="calculator-content__entrance__total__lbl">
             <span>$ </span>
             <input type="number" step="0.01" v-model="conta" />
           </div>
         </div>
-        <div class="container-content__entrance__sliders">
+        <div class="calculator-content__entrance__sliders">
           <div>
             <label>Gorjeta: </label>
             <span>{{ gorjeta }}%</span>
@@ -40,7 +40,7 @@
             <label> 20</label>
           </div>
         </div>
-        <div class="container-content__entrance__sliders">
+        <div class="calculator-content__entrance__sliders">
           <div>
             <label for="">Pessoas: </label>
             <span>{{ pessoas }}</span>
@@ -60,8 +60,8 @@
         </div>
       </section>
 
-      <section class="container-content__exit">
-        <div class="container-content__exit__result">
+      <section class="calculator-content__exit">
+        <div class="calculator-content__exit__result">
           <label>Conta:</label>
           <span>
             {{
@@ -73,7 +73,7 @@
           >
         </div>
 
-        <div class="container-content__exit__result">
+        <div class="calculator-content__exit__result">
           <label>Gorjeta: </label>
           <span>
             {{
@@ -85,7 +85,7 @@
           >
         </div>
 
-        <div class="container-content__exit__result">
+        <div class="calculator-content__exit__result">
           <label>Total com Gorjeta: </label>
           <span>
             {{
@@ -97,7 +97,7 @@
           >
         </div>
 
-        <div class="container-content__exit__result">
+        <div class="calculator-content__exit__result">
           <label>por Pessoa: </label>
           <span>
             {{
@@ -115,25 +115,25 @@
 
     <!-- Em Euro -->
 
-    <div v-on="calculateTip" v-if="!enabled" class="container-content">
-      <section class="container-content__entrance">
-        <div class="container-content__entrance__convert">
+    <div v-on="calculateTip" v-if="!enabled" class="calculator-content">
+      <section class="calculator-content__entrance">
+        <div class="calculator-content__entrance__convert">
           <p>EUR</p>
           <switches
             v-model="enabled"
-            class="container-content__entrance__convert__switches"
+            class="calculator-content__entrance__convert__switches"
           ></switches>
           <p>USD</p>
         </div>
 
-        <div class="container-content__entrance__total">
+        <div class="calculator-content__entrance__total">
           <label>Valor</label>
-          <div class="container-content__entrance__total__lbl">
+          <div class="calculator-content__entrance__total__lbl">
             <span>€ </span>
             <input type="number" step="0.01" v-model="conta" />
           </div>
         </div>
-        <div class="container-content__entrance__sliders">
+        <div class="calculator-content__entrance__sliders">
           <div>
             <label>Gorjeta: </label>
             <span>{{ gorjeta }}%</span>
@@ -144,7 +144,7 @@
             <label> 20</label>
           </div>
         </div>
-        <div class="container-content__entrance__sliders">
+        <div class="calculator-content__entrance__sliders">
           <div>
             <label for="">Pessoas: </label>
             <span>{{ pessoas }}</span>
@@ -157,8 +157,8 @@
         </div>
       </section>
 
-      <section class="container-content__exit">
-        <div class="container-content__exit__result">
+      <section class="calculator-content__exit">
+        <div class="calculator-content__exit__result">
           <label>Conta:</label>
           <span>
             {{
@@ -170,7 +170,7 @@
           </span>
         </div>
 
-        <div class="container-content__exit__result">
+        <div class="calculator-content__exit__result">
           <label>Gorjeta: </label>
           <span>
             {{
@@ -182,7 +182,7 @@
           >
         </div>
 
-        <div class="container-content__exit__result">
+        <div class="calculator-content__exit__result">
           <label>Total com Gorjeta: </label>
           <span>
             {{
@@ -194,7 +194,7 @@
           >
         </div>
 
-        <div class="container-content__exit__result">
+        <div class="calculator-content__exit__result">
           <label>por Pessoa: </label>
           <span>
             {{
@@ -216,7 +216,6 @@
 import Switches from "vue-switches";
 import ConvertDolar from "@/components/ConvertDolar.vue";
 import ConvertEuro from "@/components/ConvertEuro.vue";
-import { useCurrencyInput } from "vue-currency-input";
 
 export default {
   components: {
@@ -275,7 +274,7 @@ export default {
   }
 }
 
-.container-content {
+.calculator-content {
   display: flex;
   justify-content: center;
 

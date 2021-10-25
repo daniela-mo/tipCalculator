@@ -3,7 +3,7 @@
     <label>em R$:</label>
     <span>
       {{
-        value.toLocaleString("PT-BR", {
+        value.toLocaleString("pt-br", {
           style: "currency",
           currency: "BRL",
         })
